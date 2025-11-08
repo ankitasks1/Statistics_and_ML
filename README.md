@@ -30,6 +30,7 @@
 17. [Kaplan–Meier Survival Analysis](#kaplan-meier-survival-analysis)
 18. [Common Distributions in R](#common-distributions-in-r)
 19. [Summary Table](#summary-table)
+20. [Data Distributions Type](#data-distributions)
 
 ---
 
@@ -306,10 +307,11 @@ plot(fit)
 
 ---
 
+## Data Distributions Type
 ‐----‐-----------------------------
 Below is a summary of the probability density function (PDF) formulas for some of the most commonly used probability distributions. These distributions can describe continuous random variables, and each has a different PDF that corresponds to a specific type of behavior or data.
 
----
+---‐-------------------------------
 
 ### 1. **Normal Distribution (Gaussian Distribution)**
 
