@@ -1,0 +1,306 @@
+
+````markdown
+# 🧠 Comprehensive Guide to Statistical Tests and Distributions in R
+
+> **Author:** Ankit Verma
+> **Audience:**  Data scientists  
+> **Language:** R  
+> **Purpose:** Understand, apply, and visualize major parametric and non-parametric tests, hypothesis testing, and probability distributions.
+
+---
+
+## 📘 Table of Contents
+1. [Parametric vs Non-Parametric Tests](#parametric-vs-non-parametric-tests)
+2. [Hypothesis Testing](#hypothesis-testing)
+3. [t-Test](#t-test)
+4. [z-Test](#z-test)
+5. [Kolmogorov–Smirnov Test](#kolmogorov–smirnov-test)
+6. [Hypergeometric Test](#hypergeometric-test)
+7. [Shapiro–Wilk Test](#shapiro-wilk-test)
+8. [Wilcoxon Rank-Sum Test](#wilcoxon-rank-sum-test)
+9. [Wilcoxon Signed-Rank Test](#wilcoxon-signed-rank-test)
+10. [Kruskal–Wallis Test](#kruskal-wallis-test)
+11. [ANOVA](#anova)
+12. [Chi-Square Test](#chi-square-test)
+13. [Correlation Tests (Pearson & Spearman)](#correlation-tests)
+14. [Maximum Likelihood Estimation](#maximum-likelihood-estimation)
+15. [Bayesian Model & Posterior Probability](#bayesian-model--posterior-probability)
+16. [Cox Proportional Hazards Model](#cox-proportional-hazards-model)
+17. [Kaplan–Meier Survival Analysis](#kaplan-meier-survival-analysis)
+18. [Common Distributions in R](#common-distributions-in-r)
+19. [Summary Table](#summary-table)
+
+---
+
+## 📊 Parametric vs Non-Parametric Tests
+
+| Type | Description | Example | R Function | Assumptions |
+|------|--------------|----------|-------------|--------------|
+| **Parametric** | Assumes a specific distribution (usually normal) | t-test, ANOVA, Pearson correlation | `t.test()`, `aov()`, `cor.test(..., "pearson")` | Normality, equal variance |
+| **Non-Parametric** | Distribution-free; uses ranks | Wilcoxon, Kruskal–Wallis, Spearman | `wilcox.test()`, `kruskal.test()`, `cor.test(..., "spearman")` | Fewer assumptions |
+
+**Example in R:**
+```r
+x <- rnorm(20, mean=5)
+y <- rnorm(20, mean=6)
+
+# Parametric
+t.test(x, y)
+
+# Non-parametric
+wilcox.test(x, y)
+````
+
+---
+
+## 🧪 Hypothesis Testing
+
+**Steps:**
+
+1. State Null (H₀) and Alternative (H₁)
+2. Choose significance level (α = 0.05)
+3. Compute test statistic
+4. Obtain p-value
+5. Decide: reject or fail to reject H₀
+
+---
+
+## 🎯 t-Test
+
+**Purpose:** Compare means between two groups (σ unknown, small n)
+
+```r
+x <- rnorm(15, 5)
+y <- rnorm(15, 6)
+t.test(x, y, var.equal = TRUE)
+```
+
+**Assumptions:**
+
+* Normality
+* Equal variances
+* Independence
+
+---
+
+## 🧮 z-Test
+
+**Purpose:** Compare means (large n or known σ)
+
+```r
+x <- rnorm(40, 100, 15)
+z_value <- (mean(x) - 100) / (15/sqrt(length(x)))
+p_value <- 2 * (1 - pnorm(abs(z_value)))
+p_value
+```
+
+---
+
+## 🌊 Kolmogorov–Smirnov Test
+
+**Purpose:** Compare distribution of sample vs. theoretical distribution
+
+```r
+x <- rnorm(100)
+ks.test(x, "pnorm", mean=0, sd=1)
+```
+
+**Assumption:** Continuous data, no ties
+
+---
+
+## 🎯 Hypergeometric Test
+
+**Used in:** Gene set enrichment or sampling without replacement
+
+```r
+phyper(q=3, m=10, n=90, k=10, lower.tail=FALSE)
+```
+
+---
+
+## 📏 Shapiro–Wilk Test
+
+**Purpose:** Test for normality
+
+```r
+x <- rnorm(50)
+shapiro.test(x)
+```
+
+---
+
+## 🧾 Wilcoxon Rank-Sum Test (Mann–Whitney U)
+
+**Purpose:** Compare two independent groups (non-parametric t-test)
+
+```r
+x <- rnorm(10, 5)
+y <- rnorm(10, 6)
+wilcox.test(x, y)
+```
+
+---
+
+## 🧮 Wilcoxon Signed-Rank Test
+
+**Purpose:** Paired sample comparison (non-parametric paired t-test)
+
+```r
+x <- rnorm(10, 5)
+y <- x + rnorm(10, 0.5)
+wilcox.test(x, y, paired=TRUE)
+```
+
+---
+
+## 📊 Kruskal–Wallis Test
+
+**Purpose:** Compare ≥3 independent groups (non-parametric ANOVA)
+
+```r
+data <- data.frame(
+  value = c(rnorm(10,5), rnorm(10,6), rnorm(10,7)),
+  group = factor(rep(1:3, each=10))
+)
+kruskal.test(value ~ group, data)
+```
+
+---
+
+## 📈 ANOVA
+
+**Purpose:** Compare means among ≥3 groups
+
+```r
+data <- data.frame(
+  value = c(rnorm(10,5), rnorm(10,6), rnorm(10,7)),
+  group = factor(rep(1:3, each=10))
+)
+res <- aov(value ~ group, data)
+summary(res)
+```
+
+---
+
+## 🧮 Chi-Square Test
+
+**Purpose:** Test association between categorical variables
+
+```r
+tbl <- matrix(c(10, 20, 20, 50), nrow=2)
+chisq.test(tbl)
+```
+
+---
+
+## 🔗 Correlation Tests
+
+**Pearson (parametric):**
+
+```r
+x <- rnorm(30)
+y <- x + rnorm(30)
+cor.test(x, y, method="pearson")
+```
+
+**Spearman (non-parametric):**
+
+```r
+cor.test(x, y, method="spearman")
+```
+
+---
+
+## 📉 Maximum Likelihood Estimation
+
+**Example:** Estimate parameters of normal distribution
+
+```r
+x <- rnorm(100, mean=5, sd=2)
+mle_mean <- mean(x)
+mle_sd <- sqrt(mean((x - mle_mean)^2))
+mle_mean; mle_sd
+```
+
+---
+
+## 🧠 Bayesian Model & Posterior Probability
+
+**Formula:** Posterior = (Likelihood × Prior) / Evidence
+
+```r
+prior <- 0.5
+likelihood <- 0.9
+evidence <- (0.9*0.5 + 0.1*0.5)
+posterior <- (likelihood * prior) / evidence
+posterior
+```
+
+---
+
+## ⏱️ Cox Proportional Hazards Model
+
+**Purpose:** Examine survival time and covariates
+
+```r
+library(survival)
+data(lung)
+coxph(Surv(time, status) ~ age + sex, data=lung)
+```
+
+---
+
+## 📆 Kaplan–Meier Survival Analysis
+
+**Purpose:** Estimate survival probabilities
+
+```r
+library(survival)
+data(lung)
+fit <- survfit(Surv(time, status) ~ sex, data=lung)
+plot(fit)
+```
+
+---
+
+## 📊 Common Distributions in R
+
+| Distribution          | Description               | Example R Code                   |
+| --------------------- | ------------------------- | -------------------------------- |
+| **Normal**            | Continuous symmetric data | `rnorm(100, mean=0, sd=1)`       |
+| **Binomial**          | #successes in n trials    | `rbinom(100, size=10, prob=0.5)` |
+| **Poisson**           | Counts (rare events)      | `rpois(100, lambda=3)`           |
+| **Negative Binomial** | Overdispersed counts      | `rnbinom(100, mu=10, size=2)`    |
+| **Exponential**       | Time between events       | `rexp(100, rate=1)`              |
+| **Uniform**           | Equal probability         | `runif(100, min=0, max=1)`       |
+
+---
+
+## 🧭 Summary Table
+
+| Test           | Type           | Purpose                  | R Function                  |
+| -------------- | -------------- | ------------------------ | --------------------------- |
+| t-Test         | Parametric     | Compare means (2 groups) | `t.test()`                  |
+| z-Test         | Parametric     | Compare means (known σ)  | Manual                      |
+| ANOVA          | Parametric     | Compare ≥3 means         | `aov()`                     |
+| Chi-Square     | Non-parametric | Categorical association  | `chisq.test()`              |
+| KS-Test        | Non-parametric | Compare distributions    | `ks.test()`                 |
+| Wilcoxon       | Non-parametric | Median difference        | `wilcox.test()`             |
+| Kruskal–Wallis | Non-parametric | ≥3 groups                | `kruskal.test()`            |
+| Shapiro–Wilk   | -              | Normality                | `shapiro.test()`            |
+| Pearson        | Parametric     | Linear correlation       | `cor.test(..., "pearson")`  |
+| Spearman       | Non-parametric | Rank correlation         | `cor.test(..., "spearman")` |
+| Cox            | Parametric     | Survival                 | `coxph()`                   |
+| Kaplan–Meier   | Non-parametric | Survival probability     | `survfit()`                 |
+
+---
+
+## 📚 References
+
+* R Documentation: [https://www.rdocumentation.org/](https://www.rdocumentation.org/)
+* Hastie, Tibshirani & Friedman (2009). *The Elements of Statistical Learning*
+* OpenIntro Statistics: [https://www.openintro.org/](https://www.openintro.org/)
+* R for Data Science: [https://r4ds.had.co.nz/](https://r4ds.had.co.nz/)
+
+---
