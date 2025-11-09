@@ -313,170 +313,300 @@ Below is a summary of the probability density function (PDF) formulas for some o
 
 ---‐-------------------------------
 
-### 1. **Normal Distribution (Gaussian Distribution)**
+### 
 
-The **normal distribution** is one of the most widely known and used distributions. It is characterized by a symmetric bell-shaped curve.
-
-- **PDF**:
-  \[
-  f(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}
-  \]
-  Where:
-  - \( \mu \) = mean (location of the peak)
-  - \( \sigma^2 \) = variance (spread)
+````markdown
+# 🎲 Probability Distributions in R
 
 ---
 
-### 2. **Exponential Distribution**
+## 1. 🟢 Normal Distribution (Gaussian Distribution)
 
-The **exponential distribution** is used to model the time between events in a Poisson process, such as the time between arrivals in a queue.
+**Description:**  
+The **Normal Distribution** is symmetric and bell-shaped, commonly used to model natural phenomena like height, measurement error, etc.
 
-- **PDF**:
-  \[
-  f(x|\lambda) = \lambda e^{-\lambda x}, \quad x \geq 0
-  \]
-  Where:
-  - \( \lambda \) = rate parameter (mean = \( 1/\lambda \))
+**PDF:**
+\[
+f(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}
+\]
 
----
+Where:  
+- \( \mu \): Mean (center of distribution)  
+- \( \sigma^2 \): Variance (spread)
 
-### 3. **Uniform Distribution**
-
-The **uniform distribution** is used when all outcomes are equally likely within a given range.
-
-- **PDF** (Continuous uniform distribution):
-  \[
-  f(x|a, b) = \frac{1}{b - a}, \quad a \leq x \leq b
-  \]
-  Where:
-  - \( a \) = minimum value
-  - \( b \) = maximum value
+**R Example:**
+```r
+set.seed(123)
+x <- rnorm(1000, mean=0, sd=1)
+hist(x, probability=TRUE, col="skyblue", main="Normal Distribution")
+lines(density(x), col="red", lwd=2)
+````
 
 ---
 
-### 4. **Gamma Distribution**
+## 2. 🟠 Exponential Distribution
 
-The **gamma distribution** is often used in queuing models and to describe waiting times for multiple independent Poisson processes.
+**Description:**
+Models **time between events** in a Poisson process (e.g., time between arrivals).
 
-- **PDF**:
-  \[
-  f(x|\alpha, \beta) = \frac{x^{\alpha - 1} e^{-x/\beta}}{\Gamma(\alpha)\beta^\alpha}, \quad x \geq 0
-  \]
-  Where:
-  - \( \alpha \) = shape parameter
-  - \( \beta \) = scale parameter
-  - \( \Gamma(\alpha) \) = Gamma function
+**PDF:**
+[
+f(x|\lambda) = \lambda e^{-\lambda x}, \quad x \geq 0
+]
 
----
+Where:
 
-### 5. **Beta Distribution**
+* ( \lambda ): Rate parameter (mean = ( 1/\lambda ))
 
-The **beta distribution** is used to model variables that are constrained to a finite range, often between 0 and 1. It is widely used in Bayesian statistics.
+**R Example:**
 
-- **PDF**:
-  \[
-  f(x|\alpha, \beta) = \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}{B(\alpha, \beta)}, \quad 0 \leq x \leq 1
-  \]
-  Where:
-  - \( \alpha \) = shape parameter
-  - \( \beta \) = shape parameter
-  - \( B(\alpha, \beta) \) = Beta function
+```r
+x <- rexp(1000, rate=1)
+hist(x, probability=TRUE, col="lightgreen", main="Exponential Distribution")
+curve(dexp(x, rate=1), add=TRUE, col="red", lwd=2)
+```
 
 ---
 
-### 6. **Log-Normal Distribution**
+## 3. 🟣 Uniform Distribution
 
-The **log-normal distribution** is used when the logarithm of the variable is normally distributed. This distribution is often used in modeling stock prices, income distributions, etc.
+**Description:**
+All values are **equally likely** within the interval [a, b].
 
-- **PDF**:
-  \[
-  f(x|\mu, \sigma^2) = \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln(x) - \mu)^2}{2\sigma^2}}, \quad x > 0
-  \]
-  Where:
-  - \( \mu \) = mean of the logarithm of the variable
-  - \( \sigma^2 \) = variance of the logarithm of the variable
+**PDF:**
+[
+f(x|a,b) = \frac{1}{b - a}, \quad a \leq x \leq b
+]
 
----
+**R Example:**
 
-### 7. **Weibull Distribution**
-
-The **Weibull distribution** is often used in reliability analysis and survival studies. It can model a variety of data behaviors, such as increasing or decreasing hazard rates.
-
-- **PDF**:
-  \[
-  f(x|\lambda, k) = \frac{k}{\lambda} \left( \frac{x}{\lambda} \right)^{k-1} e^{-(x/\lambda)^k}, \quad x \geq 0
-  \]
-  Where:
-  - \( \lambda \) = scale parameter
-  - \( k \) = shape parameter
+```r
+x <- runif(1000, min=0, max=10)
+hist(x, probability=TRUE, col="khaki", main="Uniform Distribution")
+curve(dunif(x, min=0, max=10), add=TRUE, col="red", lwd=2)
+```
 
 ---
 
-### 8. **Chi-Square Distribution**
+## 4. 🔵 Gamma Distribution
 
-The **chi-square distribution** is widely used in statistical tests, such as the goodness-of-fit test, and in confidence interval estimation.
+**Description:**
+Models **waiting times** for multiple events in a Poisson process.
 
-- **PDF**:
-  \[
-  f(x|k) = \frac{x^{(k/2) - 1} e^{-x/2}}{2^{k/2} \Gamma(k/2)}, \quad x \geq 0
-  \]
-  Where:
-  - \( k \) = degrees of freedom
+**PDF:**
+[
+f(x|\alpha, \beta) = \frac{x^{\alpha - 1} e^{-x/\beta}}{\Gamma(\alpha)\beta^\alpha}, \quad x \geq 0
+]
 
----
+Where:
 
-### 9. **Student’s t-Distribution**
+* ( \alpha ): Shape
+* ( \beta ): Scale
 
-The **t-distribution** is used in hypothesis testing and confidence intervals, especially when the sample size is small.
+**R Example:**
 
-- **PDF**:
-  \[
-  f(x|\nu) = \frac{\Gamma\left( \frac{\nu+1}{2} \right)}{\sqrt{\nu\pi}\Gamma\left( \frac{\nu}{2} \right)} \left( 1 + \frac{x^2}{\nu} \right)^{-\frac{\nu+1}{2}}, \quad -\infty < x < \infty
-  \]
-  Where:
-  - \( \nu \) = degrees of freedom
-
----
-
-### 10. **Pareto Distribution**
-
-The **Pareto distribution** is often used to describe distributions of wealth or income, where a small number of individuals control a large portion of the total wealth.
-
-- **PDF**:
-  \[
-  f(x|\alpha, x_m) = \frac{\alpha x_m^\alpha}{x^{\alpha+1}}, \quad x \geq x_m
-  \]
-  Where:
-  - \( \alpha \) = shape parameter
-  - \( x_m \) = minimum value of \( x \)
+```r
+x <- rgamma(1000, shape=2, scale=2)
+hist(x, probability=TRUE, col="lightblue", main="Gamma Distribution")
+curve(dgamma(x, shape=2, scale=2), add=TRUE, col="red", lwd=2)
+```
 
 ---
 
-### 11. **Cauchy Distribution**
+## 5. 🔴 Beta Distribution
 
-The **Cauchy distribution** has heavy tails and is often used in physics to describe resonance phenomena and other types of extreme events.
+**Description:**
+Used for random variables constrained between 0 and 1 (e.g., proportions, probabilities).
 
-- **PDF**:
-  \[
-  f(x|x_0, \gamma) = \frac{1}{\pi \gamma \left( 1 + \left( \frac{x - x_0}{\gamma} \right)^2 \right)}, \quad -\infty < x < \infty
-  \]
-  Where:
-  - \( x_0 \) = location parameter
-  - \( \gamma \) = scale parameter
+**PDF:**
+[
+f(x|\alpha, \beta) = \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}{B(\alpha, \beta)}, \quad 0 \leq x \leq 1
+]
 
----
+**R Example:**
 
-### 12. **Gamma Distribution (Special Case: Exponential Distribution)**
-
-The **exponential distribution** is a special case of the **gamma distribution** where \( \alpha = 1 \). It is widely used to model waiting times or lifetimes.
-
-- **PDF**:
-  \[
-  f(x|\lambda) = \lambda e^{-\lambda x}, \quad x \geq 0
-  \]
-  Where:
-  - \( \lambda \) = rate parameter
+```r
+x <- rbeta(1000, shape1=2, shape2=5)
+hist(x, probability=TRUE, col="plum", main="Beta Distribution")
+curve(dbeta(x, shape1=2, shape2=5), add=TRUE, col="red", lwd=2)
+```
 
 ---
 
-These are just some of the well-known continuous probability distributions. Each distribution is useful for different types of data or modeling needs, and their PDFs have various forms depending on the specific characteristics of the data they represent.
+## 6. 🟡 Log-Normal Distribution
+
+**Description:**
+If ( Y = \ln(X) ) is normally distributed, then ( X ) follows a log-normal distribution.
+Used in modeling **income**, **stock prices**, etc.
+
+**PDF:**
+[
+f(x|\mu, \sigma^2) = \frac{1}{x\sigma\sqrt{2\pi}} e^{-\frac{(\ln(x) - \mu)^2}{2\sigma^2}}, \quad x > 0
+]
+
+**R Example:**
+
+```r
+x <- rlnorm(1000, meanlog=0, sdlog=1)
+hist(x, probability=TRUE, col="orange", main="Log-Normal Distribution")
+curve(dlnorm(x, meanlog=0, sdlog=1), add=TRUE, col="red", lwd=2)
+```
+
+---
+
+## 7. ⚙️ Weibull Distribution
+
+**Description:**
+Used in **reliability analysis** and **survival studies**.
+Can model increasing or decreasing failure rates.
+
+**PDF:**
+[
+f(x|\lambda, k) = \frac{k}{\lambda} \left( \frac{x}{\lambda} \right)^{k-1} e^{-(x/\lambda)^k}, \quad x \geq 0
+]
+
+**R Example:**
+
+```r
+x <- rweibull(1000, shape=2, scale=1)
+hist(x, probability=TRUE, col="cyan", main="Weibull Distribution")
+curve(dweibull(x, shape=2, scale=1), add=TRUE, col="red", lwd=2)
+```
+
+---
+
+## 8. 🧮 Chi-Square Distribution
+
+**Description:**
+Used in **goodness-of-fit** and **independence tests**.
+
+**PDF:**
+[
+f(x|k) = \frac{x^{(k/2) - 1} e^{-x/2}}{2^{k/2} \Gamma(k/2)}, \quad x \geq 0
+]
+
+Where ( k ) = degrees of freedom.
+
+**R Example:**
+
+```r
+x <- rchisq(1000, df=4)
+hist(x, probability=TRUE, col="pink", main="Chi-Square Distribution")
+curve(dchisq(x, df=4), add=TRUE, col="red", lwd=2)
+```
+
+---
+
+## 9. 📉 Student’s t-Distribution
+
+**Description:**
+Used for **small-sample inference** when variance is unknown.
+
+**PDF:**
+[
+f(x|\nu) = \frac{\Gamma\left( \frac{\nu+1}{2} \right)}{\sqrt{\nu\pi}\Gamma\left( \frac{\nu}{2} \right)} \left( 1 + \frac{x^2}{\nu} \right)^{-\frac{\nu+1}{2}}
+]
+
+**R Example:**
+
+```r
+x <- rt(1000, df=10)
+hist(x, probability=TRUE, col="lightgray", main="Student's t-Distribution")
+curve(dt(x, df=10), add=TRUE, col="red", lwd=2)
+```
+
+---
+
+## 10. 💰 Pareto Distribution
+
+**Description:**
+Models **wealth/income distributions** — a few people hold most of the wealth.
+
+**PDF:**
+[
+f(x|\alpha, x_m) = \frac{\alpha x_m^\alpha}{x^{\alpha+1}}, \quad x \geq x_m
+]
+
+**R Example (using VGAM package):**
+
+```r
+library(VGAM)
+x <- rpareto(1000, scale=1, shape=3)
+hist(x, probability=TRUE, col="wheat", main="Pareto Distribution")
+curve(dpareto(x, scale=1, shape=3), add=TRUE, col="red", lwd=2)
+```
+
+---
+
+## 11. ⚫ Cauchy Distribution
+
+**Description:**
+Heavy-tailed distribution; used in physics (resonance, noise).
+Has undefined mean and variance.
+
+**PDF:**
+[
+f(x|x_0, \gamma) = \frac{1}{\pi \gamma \left( 1 + \left( \frac{x - x_0}{\gamma} \right)^2 \right)}
+]
+
+**R Example:**
+
+```r
+x <- rcauchy(1000, location=0, scale=1)
+hist(x, probability=TRUE, col="gray", main="Cauchy Distribution")
+curve(dcauchy(x, location=0, scale=1), add=TRUE, col="red", lwd=2)
+```
+
+---
+
+## 12. 🔁 Exponential as a Special Case of Gamma Distribution
+
+**Description:**
+When ( \alpha = 1 ), the Gamma distribution becomes the **Exponential** distribution.
+
+**PDF:**
+[
+f(x|\lambda) = \lambda e^{-\lambda x}, \quad x \geq 0
+]
+
+**R Example:**
+
+```r
+x <- rgamma(1000, shape=1, rate=1)
+hist(x, probability=TRUE, col="lightgreen", main="Exponential (Gamma α=1)")
+curve(dgamma(x, shape=1, rate=1), add=TRUE, col="red", lwd=2)
+```
+
+---
+
+## 📊 Summary Table
+
+| Distribution            | R Function               | Parameters      | Common Use             |
+| ----------------------- | ------------------------ | --------------- | ---------------------- |
+| Normal                  | `rnorm(), dnorm()`       | mean, sd        | Natural phenomena      |
+| Exponential             | `rexp(), dexp()`         | rate            | Waiting time           |
+| Uniform                 | `runif(), dunif()`       | min, max        | Equal chance           |
+| Gamma                   | `rgamma(), dgamma()`     | shape, scale    | Waiting times          |
+| Beta                    | `rbeta(), dbeta()`       | α, β            | Probabilities [0,1]    |
+| Log-Normal              | `rlnorm(), dlnorm()`     | meanlog, sdlog  | Income, prices         |
+| Weibull                 | `rweibull(), dweibull()` | shape, scale    | Reliability            |
+| Chi-Square              | `rchisq(), dchisq()`     | df              | Tests                  |
+| Student’s t             | `rt(), dt()`             | df              | Small-sample inference |
+| Pareto                  | `rpareto(), dpareto()`   | shape, scale    | Wealth                 |
+| Cauchy                  | `rcauchy(), dcauchy()`   | location, scale | Heavy tails            |
+| Exponential (Gamma α=1) | `rexp(), dexp()`         | rate            | Time between events    |
+
+---
+
+## 📚 References
+
+* R Documentation: [https://www.rdocumentation.org](https://www.rdocumentation.org)
+* Casella & Berger (2002). *Statistical Inference*
+* Rice (2006). *Mathematical Statistics and Data Analysis*
+* OpenIntro Statistics: [https://www.openintro.org](https://www.openintro.org)
+
+---
+
+```
+
+
