@@ -142,6 +142,31 @@ y <- rnorm(10, 6)
 wilcox.test(x, y)
 ```
 
+Concept: 
+The Wilcoxon rank-sum test (also called the Mann–Whitney U test) is a nonparametric alternative to the two-sample t-test.
+It tests whether two independent groups come from populations with the same median (or central location) — without assuming a normal distribution.
+
+So instead of comparing means, the test compares the ranks of all observations combined.
+
+Steps:
+
+1. Combine the two groups into one list.
+
+2. Rank all values from smallest to largest (1 = smallest, N = largest).
+
+3. Compute the sum of ranks for each group.
+
+4. If one group consistently has higher ranks, it indicates a shift in central tendency (median difference).
+
+
+Example:
+A <- c(2.1,2.3)
+B <- c(3.4, 3,6, 1.2)
+
+Combine An and B values and rank them: 1:{1.2} | 2:{2.1} | 3:{2.3}  | 4:{3.4}  | 5:{3.6} 
+Now sum the ranks separately for different groups: A= 2+3=5, B=1+4+5=10
+If one group has consistently higher ranks, it likely has a higher median.
+
 ---
 
 ## 🧮 Wilcoxon Signed-Rank Test
