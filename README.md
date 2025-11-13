@@ -224,6 +224,41 @@ summary(res)
 tbl <- matrix(c(10, 20, 20, 50), nrow=2)
 chisq.test(tbl)
 ```
+Checking if survival is dependent of gene X mutation
+
+Total Patient = 236
+
+Patient with mutation in gene X = 82
+
+Patient without mutation in gene X = 236 - 82 = 154
+
+Died within one Year of taking drug =  87
+
+Survive within one Year of taking drug =  236 - 87 = 149
+
+Total survivors =  149
+
+-->Survivors with gene X mutation = 42
+
+-->Survivors without gene X mutation = 149 - 42 = 107
+
+Total died = 87
+
+-->Died with gene X mutation = 82-42 = 40
+
+-->Died without gene X mutation = 87 - 40 = 47
+
+Create contingency table, 
+
+Survivor | Died
+
+cont_tab <- matrix(c(42,107,40,47), nrow = 2)
+
+rownames(cont_tab) <- c("Mutation", "Normal")
+
+colnames(cont_tab) <- c("Survived", "Died")
+
+chisq.test(cont_tab)
 
 ---
 
