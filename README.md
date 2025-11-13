@@ -160,10 +160,12 @@ Steps:
 
 
 Example:
+
 A <- c(2.1,2.3)
+
 B <- c(3.4, 3,6, 1.2)
 
-Combine An and B values and rank them: 1:{1.2} | 2:{2.1} | 3:{2.3}  | 4:{3.4}  | 5:{3.6} 
+Combine A and B values and rank them: 1:{1.2} | 2:{2.1} | 3:{2.3}  | 4:{3.4}  | 5:{3.6} 
 Now sum the ranks separately for different groups: A= 2+3=5, B=1+4+5=10
 If one group has consistently higher ranks, it likely has a higher median.
 
