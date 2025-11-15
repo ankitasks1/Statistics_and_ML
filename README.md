@@ -672,6 +672,34 @@ curve(dgamma(x, shape=1, rate=1), add=TRUE, col="red", lwd=2)
 
 ---
 
+---
+Bootstrap for wt and ko median}
+set.seed(123)
+
+bootstrap_n <- 5000
+boot_wt <- numeric(bootstrap_n)
+boot_ko <- numeric(bootstrap_n)
+
+for ( i in 1:bootstrap_n){
+  median_wildtype <- median(sample(wildtype, 20, replace = T))
+  median_knockout <- median(sample(knockout, 20,  replace = T))
+  
+  boot_wt[i]  <- median_wildtype
+  boot_ko[i]  <- median_knockout
+}
+
+# Bootstrap CI (95%)
+## CI95% =[Percentile2.5%,Percentile97.5%]
+q_median_wildtype <- quantile(boot_wt, c(0.025, 0.975))
+q_median_knockout <- quantile(boot_ko, c(0.025, 0.975))
+
+# Bootstrap CI for WildType cell line at 95%
+q_median_wildtype
+
+# Bootstrap CI for Knockout cell line at 95%
+q_median_knockout
+
+---
 ## 📚 References
 
 * R Documentation: [https://www.rdocumentation.org](https://www.rdocumentation.org)
