@@ -673,8 +673,26 @@ curve(dgamma(x, shape=1, rate=1), add=TRUE, col="red", lwd=2)
 ---
 
 ---
-Bootstrap for wt and ko median}
+## Bootstrap for some data
+Why Use Bootstrap for some kind of Datasets?
+
+--The data contain extreme outliers.
+
+--The distributions are skewed and non-normal.
+
+--The median is not well handled by classical parametric formulas.
+
+---Standard t-tests and CI formulas assume normality and equal variance — not valid here.
+
+--Bootstrap makes no distributional assumptions.
+
+
 ```r
+
+wildtype <- c(560, 968, 3297, 1200, 858, 646, 992, 2507, 2037, 546, 2929, 1171, 1389, 1958, 3149, 1165, 2257, 2120, 65, 1571)
+knockout <- c(589, 232, 983, 2597, 827, 1363, 634, 12, 643, 1889, 2840, 1291, 939, 811, 3290, 525, 90, 543, 2400, 3012)
+
+
 set.seed(123)
 
 bootstrap_n <- 5000
@@ -690,7 +708,7 @@ for ( i in 1:bootstrap_n){
 }
 
 # Bootstrap CI (95%)
-## CI95% =[Percentile2.5%,Percentile97.5%]
+## eq CI95% =[Percentile2.5%,Percentile97.5%]
 q_median_wildtype <- quantile(boot_wt, c(0.025, 0.975))
 q_median_knockout <- quantile(boot_ko, c(0.025, 0.975))
 
