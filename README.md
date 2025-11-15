@@ -488,7 +488,7 @@ curve(dgamma(x, shape=2, scale=2), add=TRUE, col="red", lwd=2)
 ---
 
 ## 5. 🔴 Beta Distribution
-
+In probability theory and statistics, the beta distribution is a family of continuous probability distributions defined on the interval [0, 1] or (0, 1) in terms of two positive parameters, denoted by alpha (α) and beta (β), that appear as exponents of the variable and its complement to 1, respectively, and control the shape of the distribution.
 **Description:**
 Used for random variables constrained between 0 and 1 (e.g., proportions, probabilities).
 
