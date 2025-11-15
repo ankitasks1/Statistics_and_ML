@@ -33,6 +33,9 @@
 20. [Data Distributions Type](#data-distributions)
 
 ---
+## Power of a test
+The power of a hypothesis test is the probability of rejecting the null hypothesis when the alternative hypothesis is the hypothesis that is true
+
 
 ## 📊 Parametric vs Non-Parametric Tests
 
@@ -101,6 +104,11 @@ p_value
 ## 🌊 Kolmogorov–Smirnov Test
 
 **Purpose:** Compare distribution of sample vs. theoretical distribution
+
+#### Null hypthesis of KS-test
+H₀: The two distributions are identical.
+For one sample KS-test we assess for particular distribution patterns and for two sample KS-test we assess if two given continuous distributions are identical.
+
 
 ```r
 x <- rnorm(100)
