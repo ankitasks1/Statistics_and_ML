@@ -674,6 +674,7 @@ curve(dgamma(x, shape=1, rate=1), add=TRUE, col="red", lwd=2)
 
 ---
 Bootstrap for wt and ko median}
+```r
 set.seed(123)
 
 bootstrap_n <- 5000
@@ -698,7 +699,7 @@ q_median_wildtype
 
 # Bootstrap CI for Knockout cell line at 95%
 q_median_knockout
-
+```
 ---
 ## 📚 References
 
