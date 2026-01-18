@@ -719,6 +719,12 @@ q_median_wildtype
 q_median_knockout
 ```
 ---
+
+
+## Regression
+
+![Difference between regression types](Diff_Linear_Lasso_Ridge_Regression.jpg)
+
 ## 📚 References
 
 * R Documentation: [https://www.rdocumentation.org](https://www.rdocumentation.org)
